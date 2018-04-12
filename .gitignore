@@ -1,0 +1,7 @@
+__pycache__/*.pyc
+.idea/*
+data/*
+result/*
+create_UI_script
+dist/*
+build/*

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>737</width>
+    <height>582</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QWidget" name="leftSideW" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>230</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Вид отверстия</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QComboBox" name="materialCB_4">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="locale">
+             <locale language="Russian" country="Russia"/>
+            </property>
+            <property name="currentText">
+             <string>Глухое</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Глухое</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Сквозное</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Рассчитать</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Обрабатываемые материалы</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QComboBox" name="materialCB">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="locale">
+             <locale language="Russian" country="Russia"/>
+            </property>
+            <property name="currentText">
+             <string>Углеродистые конструкционные </string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Углеродистые конструкционные </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Инструментальные </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Хромистые, хромоникелевые, марганцовистые </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Теплоустойчивые аустенитного, мартенситного и ферритного классов </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Конструкционные легированные</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Коррозионно-стойкие</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Коррозионно-стойкие, жаростойкие </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Жаропрочные, жаростойкие</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Высокопрочные </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Жаропрочные деформируемые на железоникелевой основе </string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Жаропрочные литейные</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Титановые</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Цветные типа алюминиевых, магниевых, медных</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Чугуны всех марок</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Параметры резьбы</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Диаметр</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Шаг</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="materialCB_2">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="locale">
+             <locale language="Russian" country="Russia"/>
+            </property>
+            <property name="currentText">
+             <string>0,35</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>0,35</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,45</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,75</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>0,8</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1,25</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1,5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2,5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3,5</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Точность</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="2">
+           <widget class="QComboBox" name="materialCB_3">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="locale">
+             <locale language="Russian" country="Russia"/>
+            </property>
+            <property name="currentText">
+             <string>4</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>8</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Длина</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLineEdit" name="lineEdit_2">
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="rightSideW" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>9</y>
+         <width>241</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Диаметр отверстия</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>90</y>
+         <width>381</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Вид обработки</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_6">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>290</y>
+         <width>381</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Инструмент для нарезания резьбы</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>500</y>
+         <width>111</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Условия обработки</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="openSettingsAction">
+   <property name="text">
+    <string>Открыть файл</string>
+   </property>
+  </action>
+  <action name="saveSettingsAction">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+  <action name="saveAsSettingsAction">
+   <property name="text">
+    <string>Сохранить как</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
