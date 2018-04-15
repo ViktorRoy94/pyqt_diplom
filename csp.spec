@@ -3,12 +3,12 @@
 block_cipher = None
 
 
-a = Analysis(['Code\\main.py'],
-             pathex=['Code\\'],
+a = Analysis(['main.py'],
+             pathex=[''],
              binaries=[],
              datas=[],
-             hiddenimports=['Code\\Ui\\MainWindow.py', 'tkinter.filedialog'],
-             hookspath=['Code\\Ui'],
+             hiddenimports=['MainWindow.py', 'tkinter.filedialog'],
+             hookspath=[''],
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,

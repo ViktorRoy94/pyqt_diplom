@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>737</width>
+    <width>868</width>
     <height>582</height>
    </rect>
   </property>
@@ -61,7 +61,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QComboBox" name="materialCB_4">
+           <widget class="QComboBox" name="otverCB">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -90,7 +90,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="calcB">
          <property name="text">
           <string>Рассчитать</string>
          </property>
@@ -198,7 +198,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="diamL">
             <property name="text">
              <string>Диаметр</string>
             </property>
@@ -218,7 +218,7 @@
            </spacer>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="diametrLE">
             <property name="minimumSize">
              <size>
               <width>60</width>
@@ -231,10 +231,13 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="text">
+             <string>0</string>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="shagL">
             <property name="text">
              <string>Шаг</string>
             </property>
@@ -254,7 +257,7 @@
            </spacer>
           </item>
           <item row="1" column="2">
-           <widget class="QComboBox" name="materialCB_2">
+           <widget class="QComboBox" name="shagCB">
             <property name="minimumSize">
              <size>
               <width>60</width>
@@ -341,7 +344,7 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_4">
+           <widget class="QLabel" name="tochnL">
             <property name="text">
              <string>Точность</string>
             </property>
@@ -361,7 +364,7 @@
            </spacer>
           </item>
           <item row="2" column="2">
-           <widget class="QComboBox" name="materialCB_3">
+           <widget class="QComboBox" name="tochnCB">
             <property name="minimumSize">
              <size>
               <width>60</width>
@@ -408,7 +411,7 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="dlinaL">
             <property name="text">
              <string>Длина</string>
             </property>
@@ -428,7 +431,7 @@
            </spacer>
           </item>
           <item row="3" column="2">
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="dlinaLE">
             <property name="minimumSize">
              <size>
               <width>60</width>
@@ -440,6 +443,9 @@
               <width>70</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </widget>
           </item>
@@ -469,58 +475,24 @@
         <height>16777215</height>
        </size>
       </property>
-      <widget class="QGroupBox" name="groupBox_4">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>241</width>
-         <height>61</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Диаметр отверстия</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_5">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>90</y>
-         <width>381</width>
-         <height>191</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Вид обработки</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>290</y>
-         <width>381</width>
-         <height>191</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Инструмент для нарезания резьбы</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>500</y>
-         <width>111</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Условия обработки</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QWidget" name="webW" native="true"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="obrabB">
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Условия обработки</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
