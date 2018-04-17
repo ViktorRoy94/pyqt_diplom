@@ -5,3 +5,4 @@ result/*
 create_UI_script
 dist/*
 build/*
+test*
