@@ -1,6 +1,6 @@
 from Ui_MainWindow import *
-from PyQt5.QtWidgets import QMainWindow, QHBoxLayout
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
+from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QScrollArea, QMessageBox
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
 import os
 import io
 
@@ -12,27 +12,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
 
-
-
-        self.web = QWebEngineView(self.webW)
-
-
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum,
-                                           QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.web.sizePolicy().hasHeightForWidth())
-        self.web.setSizePolicy(sizePolicy)
-
-        hbox = QHBoxLayout()
-        hbox.addWidget(self.web)
-        QWebEngineSettings.globalSettings().setAttribute(
-            QWebEngineSettings.PluginsEnabled, True)
+        layout = QHBoxLayout(self.webW)
+        self.web = QWebEngineView()
+        self.web.setMinimumWidth(575)
+        self.web.setMaximumWidth(600)
+        scroll = QScrollArea()
+        scroll.setWidget(self.web)
+        scroll.setWidgetResizable(True)
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        layout.addWidget(scroll)
 
         self.pic = Pictures()
 
+        self.calc_clicked = False
         self.calcB.clicked.connect(self.on_calcB)
         self.obrabB.clicked.connect(self.on_obrabB)
+
         self.materialCB.activated.connect(self.on_materialCB)
         self.diametrLE.editingFinished.connect(self.on_diametrLE)
         self.shagCB.activated.connect(self.on_shagCB)
@@ -47,7 +42,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         str += "<style>\n"\
                     "table {\n"\
-                        "border-spacing: 1px 1px;\n"\
                         "width: 50;\n" \
                     "}\n"\
                     "td {\n"\
@@ -56,7 +50,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     "}\n" \
                "</style>\n"
 
-        str += "Диаметр отверстия под резьбу - {}\n".format(diam_otver)
+        str += "Диаметр отверстия под резьбу - {}<br>\n".format(diam_otver)
+        str += "Точность – 6Н. Вид обработки - получистовой.\n"
         str += "<h3>Инструмент для обработки отверстия под резьбу</h3>\n"
 
         str += "<table>\n"
@@ -76,70 +71,99 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                "</figure>\n".format(self.pic.get_zenker())
         str += "</td>\n"
 
-        str += "<td>\n"
-        str += "<figure>\n" \
-               "<img style=\"max-width: 110px; height: auto; \" src={} alt=\"my img\"/>\n" \
-               "<figcaption> Развертка </figcaption>\n" \
-               "</figure>\n".format(self.pic.get_razvertka())
-        str += "</td>\n"
+        if photo_count == 3:
+            str += "<td>\n"
+            str += "<figure>\n" \
+                   "<img style=\"max-width: 110px; height: auto; \" src={} alt=\"my img\"/>\n" \
+                   "<figcaption> Развертка </figcaption>\n" \
+                   "</figure>\n".format(self.pic.get_razvertka())
+            str += "</td>\n"
 
         str += "</tr>\n"
         str += "</table>\n"
 
-        str += "<h3>Инструмент</h3>\n"
+        str += "<h3>Инструмент для нарезания резьбы</h3>\n"
         str += "<figure>\n" \
                "<img style=\"max-width: 400px; height: auto; \" src={} alt=\"my img\"/>\n" \
                "<figcaption> Метчик </figcaption>\n" \
                "</figure>\n".format(self.pic.get_metchik())
 
+        str += "<h5>Характеристики инструмента</h5>\n"
+        str += "<img style=\"max-width: 500px; height: auto; \" src={} alt=\"my img\"/>\n"\
+            .format(self.pic.get_table())
+        str += "<ul>"\
+                   "<li>Покрытие-DLC</li>"\
+                   "<li>Порошковая быстрорежущая сталь</li>"\
+                   "<li>Прямые канавки с подточкой центра</li>"\
+               "</ul>"
+        str += "Рекомендуемая конструкция метчика:"
         str += "</body>\n"\
                "</html>"
-
-#         str = ''' <!DOCTYPE html>
-# <html>
-# <head>
-#     <meta charset="UTF-8">
-#     <title></title>
-#     <style >
-#     table {
-#         border: 4px double #333; /* Рамка вокруг таблицы */
-#         border-collapse: separate; /* Способ отображения границы */
-#         width: 25; /* Ширина таблицы */
-#         border-spacing: 1px 2px; /* Расстояние между ячейками */
-#    }
-#    td {
-#     padding: 1px; /* Поля вокруг текста */
-#     border: 1px solid #a52a2a; /* Граница вокруг ячеек */
-#    }
-#     </style>
-# </head>
-# <body>
-#     <table>
-#         <tr>
-#             <td>1</td><td>2</td>
-#         </tr>
-#         <tr>
-#             <td>3</td><td>4</td>
-#         </tr>
-#     </table>
-# </body>
-# </html>'''
-
-
         print(str)
-        with io.open("test.html", 'w', encoding="utf-8") as f:
-            f.write(str)
-        return "test.html"
+        return str
 
 
     def on_calcB(self):
-        fileName = self.createWebPage(0, 2)
-        self.web.load(QtCore.QUrl(os.path.abspath(fileName)))
-
+        self.calc_clicked = True
+        str = self.createWebPage(0, 2)
+        self.file_name = "test.html"
+        with io.open(self.file_name, 'w', encoding="utf-8") as f:
+            f.write(str)
+        self.web.load(QtCore.QUrl(os.path.abspath(self.file_name)))
 
 
     def on_obrabB(self):
-        pass
+        if not self.calc_clicked:
+            QMessageBox.warning(self, "Сообщение", "Сначала нажмите кнопку рассчитать")
+            return
+
+        str = "<html>\n"\
+              "<meta charset=\"UTF-8\">\n"\
+              "<body>\n"
+
+        str += "<style>\n"\
+                    "table {\n"\
+                        "width: 100;\n" \
+                    "}\n"\
+                    "td {\n"\
+                        "padding: 0px;\n" \
+                        "border: 1px double #333;" \
+                    "}\n" \
+               "</style>\n"
+
+        str += "<h3>Режимы резания</h3>\n"
+        str += "<table>\n"
+
+        str += "<tr>\n"
+        str += "<td>Стойкость инструмента, ч</td>\n"
+        str += "<td>Подача, мм</td>\n"
+        str += "<td>Скорость резания, м/мин</td>\n"
+        str += "</tr>\n"
+
+        str += "<tr>\n"
+        str += "<td>30</td>\n"
+        str += "<td>0,5</td>\n"
+        str += "<td>6,96</td>\n"
+        str += "</tr>\n"
+
+        str += "</table>\n"
+        str += "<h3>Вид патрона</h3>\n"
+        str += "<figure>\n" \
+               "<img style=\"max-width: 300px; height: auto; \" src={} alt=\"my img\"/>\n" \
+               "<figcaption> Быстросменные патроны с безопасной фрикционной муфтой: для глухих отверстий. </figcaption>\n" \
+               "</figure>\n".format(self.pic.get_patron())
+        str += "<h3>Вид СОЖ</h3>\n"
+        str += "ECOCOOL AL Plus."
+        str += "</body>\n"\
+               "</html>"
+
+        self.file_name_window = "test_window.html"
+        with io.open(self.file_name_window, 'w', encoding="utf-8") as f:
+            f.write(str)
+
+        self.window = QWebEngineView()
+        self.window.load(QtCore.QUrl(os.path.abspath(self.file_name_window)))
+        self.window.show()
 
     def on_materialCB(self):
         pass
@@ -156,6 +180,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_otverCB(self):
         pass
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        os.remove(self.file_name)
+        os.remove(self.file_name_window)
+
 class Pictures():
     def __init__(self):
         self.folder = "\Pictures\\"
@@ -164,6 +192,7 @@ class Pictures():
         self.razvertka = "razvertka.jpg"
         self.sverlo = "sverlo.jpg"
         self.zenker = "zenker.jpg"
+        self.table = "table.jpg"
 
     def get_metchik(self):
         return os.getcwd() + self.folder + self.metchik
@@ -179,3 +208,6 @@ class Pictures():
 
     def get_zenker(self):
         return os.getcwd() + self.folder + self.zenker
+
+    def get_table(self):
+        return os.getcwd() + self.folder + self.table
