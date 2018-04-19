@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>582</height>
+    <width>1013</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -274,41 +274,36 @@
              <locale language="Russian" country="Russia"/>
             </property>
             <property name="currentText">
-             <string>0,35</string>
+             <string>0.35</string>
             </property>
             <item>
              <property name="text">
-              <string>0,35</string>
+              <string>0.35</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>0,4</string>
+              <string>0.4</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>0,45</string>
+              <string>0.45</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>0,5</string>
+              <string>0.5</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>0,7</string>
+              <string>0.75</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>0,75</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>0,8</string>
+              <string>0.8</string>
              </property>
             </item>
             <item>
@@ -318,17 +313,17 @@
             </item>
             <item>
              <property name="text">
-              <string>1,25</string>
+              <string>1.25</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>1,5</string>
+              <string>1.5</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>2,5</string>
+              <string>2.5</string>
              </property>
             </item>
             <item>
@@ -338,7 +333,7 @@
             </item>
             <item>
              <property name="text">
-              <string>3,5</string>
+              <string>3.5</string>
              </property>
             </item>
            </widget>
