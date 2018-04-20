@@ -28,6 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pic = Pictures()
         self.file_name = "test.html"
         self.file_name_window = "test_window.html"
+        self.type = 0
 
         self.calc_clicked = False
         self.calcB.clicked.connect(self.on_calc_b)
@@ -38,8 +39,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                           1.5: -1.624, 2.5: -3.706, 3: 3.248, 3.5: -3.789}
         self.tochn = {4: "чистовой", 5: "чистовой", 6: "получистовой",
                       7: "черновой", 8: "черновой"}
+        self.tables = [[30, 0.5, 6.96], [30, 0.8, 10.15], [30, 0.45, 5.89]]
+        desc = "<ul>" \
+               "<li>Покрытие-DLC</li>" \
+               "<li>Порошковая быстрорежущая сталь</li>" \
+               "<li>Прямые канавки с подточкой центра</li>" \
+               "</ul>"
+        desc1 = "<ul>" \
+               "<li>Покрытие-DLC</li>" \
+               "<li>Заходная часть 2.5 нитки</li>" \
+               "<li>Правые спиральные канавки 40˚</li>" \
+               "</ul>"
+        desc2 = "<ul>" \
+               "<li>Покрытие-DLC</li>" \
+               "<li>Порошковая быстрорежущая сталь</li>" \
+               "<li>Правые спиральные канавки 40˚</li>" \
+               "</ul>"
+        self.desc = [desc, desc1, desc2]
 
-    def create_web_page(self, diam_otver, photo_count, tochn, vid_obrab):
+    def on_calc_b(self):
+        self.web.setHtml("")
+        self.calc_clicked = True
+
+        diam = self.get_diam_otver()
+        dlina = self.get_dlina()
+        if diam is None or dlina is None:
+            return
+        shag = float(self.shagCB.currentText())
+        otver = self.otverCB.currentText()
+        tochn = self.tochnCB.currentText()
+        vid_obrab = self.tochn[int(tochn)]
+
+        if (otver == "Глухое" and shag == 0.8 and dlina == 7.0 and diam == 5.0):
+            self.type = 1
+
+        if (otver == "Глухое" and shag == 0.45 and dlina == 5.0 and diam == 2.5):
+            self.type = 2
+
+        diam = self.shag_diam[shag] + diam
+        diam = round(diam, 3)
+
+        str = self.create_first_web_page(diam, 3, tochn, vid_obrab)
+
+        with io.open(self.file_name, 'w', encoding="utf-8") as f:
+            f.write(str)
+        self.web.load(QtCore.QUrl(os.path.abspath(self.file_name)))
+
+    def on_obrab_b(self):
+        if not self.calc_clicked:
+            QMessageBox.warning(self, "Сообщение",
+                                "Сначала нажмите кнопку рассчитать")
+            return
+
+        html_str = self.create_second_web_page()
+
+        with io.open(self.file_name_window, 'w', encoding="utf-8") as f:
+            f.write(html_str)
+
+        self.window.load(QtCore.QUrl(os.path.abspath(self.file_name_window)))
+        self.window.show()
+
+    def create_first_web_page(self, diam_otver, photo_count, tochn, vid_obrab):
 
         html_str = "<html>\n" \
               "<meta charset=\"UTF-8\">\n" \
@@ -92,42 +152,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                "<img style=\"max-width: 400px; height: auto; \" src={} " \
                "alt=\"my img\"/>\n" \
                "<figcaption> Метчик </figcaption>\n" \
-               "</figure>\n".format(self.pic.get_metchik())
+               "</figure>\n".format(self.pic.get_metchik(self.type))
 
         html_str += "<h5>Характеристики инструмента</h5>\n"
         html_str += "<img style=\"max-width: 500px; height: auto; \" src={} " \
-               "alt=\"my img\"/>\n".format(self.pic.get_table())
-        html_str += "<ul>" \
-               "<li>Покрытие-DLC</li>" \
-               "<li>Порошковая быстрорежущая сталь</li>" \
-               "<li>Прямые канавки с подточкой центра</li>" \
-               "</ul>"
+               "alt=\"my img\"/>\n".format(self.pic.get_table(self.type))
+        html_str += self.desc[self.type]
         html_str += "Рекомендуемая конструкция метчика:"
         html_str += "</body>\n" \
                "</html>"
         return html_str
 
-    def on_calc_b(self):
-        self.web.setHtml("")
-        self.calc_clicked = True
-
-        diam = self.get_diam_otver()
-        if diam is None:
-            return
-        tochn = self.tochnCB.currentText()
-        vid_obrab = self.tochn[int(tochn)]
-        str = self.create_web_page(diam, 3, tochn, vid_obrab)
-
-        with io.open(self.file_name, 'w', encoding="utf-8") as f:
-            f.write(str)
-        self.web.load(QtCore.QUrl(os.path.abspath(self.file_name)))
-
-    def on_obrab_b(self):
-        if not self.calc_clicked:
-            QMessageBox.warning(self, "Сообщение",
-                                "Сначала нажмите кнопку рассчитать")
-            return
-
+    def create_second_web_page(self):
         html_str = "<html>\n" \
               "<meta charset=\"UTF-8\">\n" \
               "<body>\n"
@@ -152,9 +188,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         html_str += "</tr>\n"
 
         html_str += "<tr>\n"
-        html_str += "<td>30</td>\n"
-        html_str += "<td>0,5</td>\n"
-        html_str += "<td>6,96</td>\n"
+        html_str += "<td>{}</td>\n".format(self.tables[self.type][0])
+        html_str += "<td>{}</td>\n".format(self.tables[self.type][1])
+        html_str += "<td>{}</td>\n".format(self.tables[self.type][2])
         html_str += "</tr>\n"
 
         html_str += "</table>\n"
@@ -169,19 +205,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         html_str += "ECOCOOL AL Plus."
         html_str += "</body>\n" \
                "</html>"
-
-        with io.open(self.file_name_window, 'w', encoding="utf-8") as f:
-            f.write(html_str)
-
-        self.window.load(QtCore.QUrl(os.path.abspath(self.file_name_window)))
-        self.window.show()
+        return html_str
 
     def get_diam_otver(self):
         try:
-            diam = float(self.diametrLE.text())
-            shag = float(self.shagCB.currentText())
-            diam = self.shag_diam[shag] + diam
-            return round(diam, 3)
+            return float(self.diametrLE.text())
+        except ValueError:
+            QMessageBox.warning(self, "Ошибка",
+                                "Диаметр отверстия задан неправильно")
+
+    def get_dlina(self):
+        try:
+            dlina = float(self.dlinaLE.text())
+            return dlina
         except ValueError:
             QMessageBox.warning(self, "Ошибка",
                                 "Диаметр отверстия задан неправильно")
@@ -194,15 +230,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 class Pictures:
     def __init__(self):
         self.folder = "\Pictures\\"
-        self.metchik = "metchik.jpg"
+        self.metchik = ["metchik.jpg", "metchik_1.jpg", "metchik_2.jpg"]
         self.patron = "patron.jpg"
         self.razvertka = "razvertka.jpg"
         self.sverlo = "sverlo.jpg"
         self.zenker = "zenker.jpg"
-        self.table = "table.jpg"
+        self.table = ["table.jpg", "table_1.jpg", "table_2.jpg"]
 
-    def get_metchik(self):
-        return os.getcwd() + self.folder + self.metchik
+    def get_metchik(self, i):
+        return os.getcwd() + self.folder + self.metchik[i]
 
     def get_patron(self):
         return os.getcwd() + self.folder + self.patron
@@ -216,5 +252,5 @@ class Pictures:
     def get_zenker(self):
         return os.getcwd() + self.folder + self.zenker
 
-    def get_table(self):
-        return os.getcwd() + self.folder + self.table
+    def get_table(self, i):
+        return os.getcwd() + self.folder + self.table[i]
